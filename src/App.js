@@ -6,6 +6,27 @@ import Routes from "./routes";
 import "./App.css";
 
 class App extends Component {
+  state = {
+    books: [],
+    isLoading: false
+  };
+
+  componentDidMount(){
+    const context = this
+    this.setState({isLoading: true}, ()=>
+    axios
+    .get("https://learnit-library-api.herokuapp.com/library")
+    .then(res=>{
+      console.log(res);
+      context.setState({
+        books:res.data,
+        isLoading:false
+      })
+    }
+    )
+    )
+  }
+  
   render() {
     return (
       <div className="App">
